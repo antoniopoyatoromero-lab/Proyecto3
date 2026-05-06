@@ -22,4 +22,13 @@ public abstract class Persona {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
