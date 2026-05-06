@@ -1,4 +1,4 @@
-package model;
+package proyecto.model;
 
 public class Propietario extends Persona {
     private int dinero;

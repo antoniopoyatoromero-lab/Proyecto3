@@ -1,4 +1,4 @@
-package model;
+package proyecto.model;
 
 public abstract class Persona {
     protected int id;

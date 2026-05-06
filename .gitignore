@@ -40,4 +40,4 @@ build/
 .DS_Store
 
 connection.xml
-Proyecto3\src\main\java\MainPruebas.java
+src/main/java/proyecto/MainPruebas.java
