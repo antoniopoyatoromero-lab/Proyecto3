@@ -5,45 +5,29 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionDB {
-    private final String FILE = "connection.xml";
-    private Connection con;
-    private ConnectionProperties properties;
+    private static final String FILE = "connection.xml";
+    private static Connection con;
     //1. crear una instancia de la propia clase
     private static ConnectionDB _instance;
 
     //2. Constructor privado
     private ConnectionDB() {
         //leo del connection.xml los datos para la conexion
-        properties = XMLManager.readXML(new ConnectionProperties(), FILE);
-    }
-
-    public void connect() throws SQLException {
+        ConnectionProperties properties = XMLManager.readXML(new ConnectionProperties(), FILE);
         try{
             con = DriverManager.getConnection(properties.getURL(), properties.getUser(), properties.getPassword());
         }catch(SQLException e){
+            e.printStackTrace();
             con=null;
-            throw e;
         }
-    }
-
-    private void disconnect() {
-        con = null;
-    }
-
-    private boolean isConnected() {
-        return con != null;
     }
 
     //3. metodo publico que me devuelve la instancia ya creada, si la primera vez la crea
 
-    public static ConnectionDB getInstance() {
+    public static Connection getConnection() {
         if(_instance==null){
             _instance = new ConnectionDB();
         }
-        return _instance;
-    }
-
-    public Connection getConnection() {
         return con;
     }
 }

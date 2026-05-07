@@ -7,4 +7,7 @@ module org.example.proyecto3 {
 
     opens proyecto to javafx.fxml;
     exports proyecto;
+
+    opens proyecto.dataAccess to java.xml.bind;
+    exports proyecto.dataAccess;
 }
