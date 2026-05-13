@@ -20,4 +20,14 @@ public class ConceptoCuota {
     public String getTipo() {
         return tipo;
     }
+
+    @Override
+    public String toString() {
+        return "ConceptoCuota{" +
+                "id=" + id +
+                ", tipo='" + tipo + '\'' +
+                ", finca=" + finca.getDireccion() +
+                ", cuotas=" + cuotas.stream().map(Cuota :: getNombre).toList() +
+                '}';
+    }
 }

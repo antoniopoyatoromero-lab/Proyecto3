@@ -21,4 +21,15 @@ public class Finca {
     public String getDireccion() {
         return direccion;
     }
+
+    @Override
+    public String toString() {
+        return "Finca{" +
+                "id=" + id +
+                ", direccion='" + direccion + '\'' +
+                ", trabajador=" + trabajador.nombre +
+                ", conceptosCuotas=" + conceptosCuotas.stream().map(ConceptoCuota :: getTipo).toList() +
+                ", inmuebles=" + inmuebles.stream().map(Inmueble :: getDireccion).toList() +
+                '}';
+    }
 }

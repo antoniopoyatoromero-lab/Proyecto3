@@ -17,11 +17,6 @@ public class Trabajador extends Persona {
 
     @Override
     public String toString() {
-        return
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", password='" + password + '\'' +
-                ", dni='" + dni + '\'' +
-                ", fincas=" + fincas;
+        return super.toString() + " sdni='"+dni+"' fincas='"+fincas.stream().map(Finca::getDireccion).toList()+"'}";
     }
 }

@@ -11,16 +11,31 @@ public class Propietario extends Persona {
         this.dinero = dinero;
     }
 
+    public Propietario(String password, String nombre, double dinero) {
+        super(password, nombre);
+        this.dinero = dinero;
+    }
+
+    public Propietario(int id, String password, String nombre, double dinero, List<Inmueble> inmuebles) {
+        super(id, password, nombre);
+        this.dinero = dinero;
+        this.inmuebles = inmuebles;
+    }
+
     public double getDinero() {
         return dinero;
     }
 
+    public void setDinero(double dinero) {
+        this.dinero = dinero;
+    }
+
+    public void setInmuebles(List<Inmueble> inmuebles) {
+        this.inmuebles = inmuebles;
+    }
+
     @Override
     public String toString() {
-        return "id='" + id + "'" +
-                ", nombre='" + nombre + "'" +
-                ", password='" + password + "'" +
-                ", dinero='" + dinero + "'" +
-                ", inmuebles='" + inmuebles + "'";
+        return super.toString()+ " dinero='"+dinero+"' inmuebles='"+inmuebles.stream().map(Inmueble::getDireccion).toList()+"'}";
     }
 }

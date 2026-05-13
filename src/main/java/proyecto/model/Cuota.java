@@ -30,4 +30,16 @@ public class Cuota {
     public int getCosto() {
         return costo;
     }
+
+    @Override
+    public String toString() {
+        return "Cuota{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", costo=" + costo +
+                ", conceptoCuota=" + conceptoCuota.getTipo() +
+                ", inmueble=" + inmueble.getDireccion() +
+                '}';
+    }
 }
