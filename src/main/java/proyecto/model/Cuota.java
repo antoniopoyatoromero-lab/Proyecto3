@@ -31,6 +31,14 @@ public class Cuota {
         return costo;
     }
 
+    public Inmueble getInmueble() {
+        return inmueble;
+    }
+
+    public ConceptoCuota getConceptoCuota() {
+        return conceptoCuota;
+    }
+
     @Override
     public String toString() {
         return "Cuota{" +

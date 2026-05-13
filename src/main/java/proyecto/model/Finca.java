@@ -22,6 +22,10 @@ public class Finca {
         return direccion;
     }
 
+    public Trabajador getTrabajador() {
+        return trabajador;
+    }
+
     @Override
     public String toString() {
         return "Finca{" +

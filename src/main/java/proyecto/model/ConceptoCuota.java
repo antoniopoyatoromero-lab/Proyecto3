@@ -21,6 +21,10 @@ public class ConceptoCuota {
         return tipo;
     }
 
+    public Finca getFinca() {
+        return finca;
+    }
+
     @Override
     public String toString() {
         return "ConceptoCuota{" +

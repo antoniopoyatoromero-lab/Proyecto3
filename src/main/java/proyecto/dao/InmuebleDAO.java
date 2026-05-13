@@ -16,9 +16,10 @@ public class InmuebleDAO {
     private final static String SQL_ALL = "SELECT * FROM inmuebles";
     private final static String SQL_FIND_BY_ID = "SELECT * FROM Propietario Where idPropietario = ?";
     private final static String SQL_FIND_BY_ID_PROPIETARIO = "SELECT * FROM Inmueble where idPropietario =?";
-    private final static String SQL_INSERT = "INSERT INTO Propietario (direccion,valor,idFinca,idPropietario) VALUES (?,?,?,?)";
-    private final static String SQL_UPDATE = "UPDATE Propietario SET nombre = ?, contraseña = ?, dinero = ? WHERE idPropietario = ?";
-    private final static String SQL_DELETE = "DELETE FROM Propietario WHERE idPropietario = ?";
+    private final static String SQL_INSERT = "INSERT INTO Inmueble (direccion,valor,idFinca,idPropietario) VALUES (?,?,?,?)";
+    private final static String SQL_UPDATE_COSTO = "UPDATE Inmueble SET costo = ? WHERE idInmueble = ?";
+    private final static String SQL_UPDATE_PROPIETARIO = "UPDATE Inmueble SET idPropietario = ? WHERE idInmueble = ?";
+
 
     public static List<Inmueble> findAll() {
         List<Inmueble> inmuebles = new ArrayList<>();
@@ -55,15 +56,14 @@ public class InmuebleDAO {
         return inmuebles;
     }
 
-    public static Inmueble findById(int idInmueble){
+    public static Inmueble findById(int id){
         Inmueble inmueble = null;
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
-            ps.setInt(1, idInmueble);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
             while (rs.next()) {
-                int id = rs.getInt("idInmueble");
                 String direccion = rs.getString("direccion");
                 Double coste = rs.getDouble("valor");
                 inmueble = new Inmueble(coste,direccion,id);
@@ -114,17 +114,31 @@ public class InmuebleDAO {
         return added;
     }
 
-    public static boolean deleteAutorById(int idPropietario) {
-        boolean deleted = false;
-        if(findById(idPropietario)!=null){
-            try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_DELETE)) {
-                ps.setInt(1, idPropietario);
-                ps.executeUpdate();
-                deleted = true;
-            }catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+    public static boolean updateCosto(double costo, int id){
+        boolean updated = false;
+        try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_UPDATE_COSTO)) {
+            ps.setDouble(1, costo);
+            ps.setInt(2,id);
+            ps.executeUpdate();
+            updated = true;
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return deleted;
+
+        return updated;
+    }
+
+    public static boolean updatePropietario(int idPropietario, int id){
+        boolean updated = false;
+        try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_UPDATE_COSTO)) {
+            ps.setDouble(1, idPropietario);
+            ps.setInt(2,id);
+            ps.executeUpdate();
+            updated = true;
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return updated;
     }
 }

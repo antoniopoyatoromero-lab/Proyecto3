@@ -12,6 +12,7 @@ public class PropietarioDAO {
     private final static String SQL_ALL = "SELECT * FROM propietario";
     private final static String SQL_FIND_BY_ID = "SELECT * FROM Propietario Where idPropietario = ?";
     private final static String SQL_FIND_BY_PASSWORD = "SELECT * FROM Propietario where contraseña =?";
+    private final static String SQL_FIND_BY_NAME = "SELECT * FROM Propietario where nombre =?";
     private final static String SQL_INSERT = "INSERT INTO Propietario (nombre,contraseña,dinero) VALUES (?,?,?)";
     private final static String SQL_UPDATE_PASSWORD = "UPDATE Propietario SET contraseña = ? WHERE idPropietario = ?";
     private final static String SQL_UPDATE_DINERO = "UPDATE Propietario SET dinero = ? WHERE idPropietario = ?";
@@ -52,15 +53,14 @@ public class PropietarioDAO {
         return propietarios;
     }
 
-    public static Propietario findById(int idPropietario){
+    public static Propietario findById(int id){
         Propietario propietario = null;
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
-            ps.setInt(1, idPropietario);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
             while (rs.next()) {
-                int id = rs.getInt("idpropietario");
                 String password = rs.getString("contraseña");
                 String nombre = rs.getString("nombre");
                 Double dinero = rs.getDouble("dinero");
@@ -88,6 +88,7 @@ public class PropietarioDAO {
         }
         return added;
     }
+
     private static Propietario findByPassword(String password) {
         Propietario propietario = null;
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_PASSWORD)) {
@@ -106,11 +107,29 @@ public class PropietarioDAO {
         return propietario;
     }
 
-    public static boolean updatePassword(String contraseña, int id){
+    private static Propietario findByNombre(String nombre) {
+        Propietario propietario = null;
+        try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_NAME)) {
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("idPropietario");
+                String password = rs.getString("contraseña");
+                double dinero = rs.getDouble("dinero");
+                propietario = new Propietario(id,password,nombre,dinero);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return propietario;
+    }
+
+    public static boolean updatePassword(String password, int id){
         boolean updated = false;
-        if(contraseña.isEmpty()){
+        if(password.isEmpty()){
             try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_UPDATE_PASSWORD)) {
-                ps.setString(1, contraseña);
+                ps.setString(1, password);
                 ps.setInt(2,id);
                 ps.executeUpdate();
                 updated = true;
@@ -134,11 +153,12 @@ public class PropietarioDAO {
 
         return updated;
     }
-    public static boolean deleteAutorById(int idPropietario) {
+
+    public static boolean deletePropietarioById(int id) {
         boolean deleted = false;
-        if(findById(idPropietario)!=null){
+        if(findById(id)!=null){
             try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_DELETE)) {
-                ps.setInt(1, idPropietario);
+                ps.setInt(1, id);
                 ps.executeUpdate();
                 deleted = true;
             }catch (SQLException e) {
