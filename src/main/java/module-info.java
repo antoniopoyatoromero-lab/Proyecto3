@@ -3,7 +3,7 @@ module org.example.proyecto3 {
     requires javafx.fxml;
     requires java.xml.bind;
     requires java.sql;
-    requires org.example.proyecto3;
+
 
 
     opens proyecto to javafx.fxml;

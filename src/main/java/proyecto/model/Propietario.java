@@ -36,6 +36,6 @@ public class Propietario extends Persona {
 
     @Override
     public String toString() {
-        return super.toString()+ " dinero='"+dinero+"' inmuebles='"+inmuebles.stream().map(Inmueble::getDireccion).toList()+"'}";
+        return super.toString()+ " dinero='"+dinero+"'}";
     }
 }
