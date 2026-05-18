@@ -2,7 +2,7 @@ package proyecto.model;
 
 import java.util.List;
 
-public class Propietario extends Persona {
+public class Propietario extends Usuario {
     private double dinero;
     private List<Inmueble> inmuebles;
 

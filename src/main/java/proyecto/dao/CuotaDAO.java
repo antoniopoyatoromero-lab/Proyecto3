@@ -13,28 +13,10 @@ import java.util.List;
 
 public class CuotaDAO {
 
-    private final static String SQL_ALL = "SELECT * FROM Cuota";
     private final static String SQL_FIND_BY_ID = "SELECT * FROM Cuota Where idCuota = ?";
     private final static String SQL_FIND_BY_ID_INMUEBLE = "SELECT * FROM Cuota where idInmueble =?";
     private final static String SQL_INSERT = "INSERT INTO Cuota (nombre,descripcion,costo,idConceptoCuota,idInmueble) VALUES (?,?,?,?,?)";
     private final static String SQL_DELETE = "DELETE FROM Cuota WHERE idCuota = ?";
-
-    public static List<Cuota> findAll() {
-        List<Cuota> cuotas = new ArrayList<>();
-        try (ResultSet rs = ConnectionDB.getConnection().createStatement().executeQuery(SQL_ALL)) {
-            while (rs.next()) {
-                int id = rs.getInt("idcuota");
-                String descripcion = rs.getString("descripcion");
-                String nombre = rs.getString("nombre");
-                int costo = rs.getInt("costo");
-                Cuota cuota = new Cuota(id,nombre,descripcion,costo);
-                cuotas.add(cuota);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return cuotas;
-    }
 
     public static Cuota findById(int id){
         Cuota cuota = null;

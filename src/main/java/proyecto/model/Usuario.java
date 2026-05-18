@@ -1,17 +1,17 @@
 package proyecto.model;
 
-public abstract class Persona {
+public abstract class Usuario {
     protected int id;
     protected String nombre;
     protected String password;
 
-    public Persona(int id, String password, String nombre) {
+    public Usuario(int id, String password, String nombre) {
         this.id = id;
         this.password = password;
         this.nombre = nombre;
     }
 
-    public Persona(String password, String nombre) {
+    public Usuario(String password, String nombre) {
         this.password = password;
         this.nombre = nombre;
     }

@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -30,12 +41,12 @@
          <items>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Propiedade Adquiridass" />
+                  <Label text="Viviendas Construidas" />
                   <ListView />
                   <HBox spacing="15.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Pagar cuotas" />
-                        <Button mnemonicParsing="false" text="Añadir dinero" />
+                        <Button mnemonicParsing="false" text="Añadir cuota" />
+                        <Button mnemonicParsing="false" text="Editar propietario" />
                         <Button mnemonicParsing="false" text="Recargar" />
                         <Button mnemonicParsing="false" text="Atras" />
                      </children>
@@ -56,8 +67,8 @@
                   <Label text="Detalle de la Vivienda" />
                   <GridPane>
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="399.0" minWidth="10.0" prefWidth="399.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.4" minWidth="68.19998779296876" prefWidth="85.79996337890626" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="399.0" minWidth="10.0" prefWidth="369.8000366210938" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -69,7 +80,7 @@
                         <Label text="ID:" />
                         <Label text="Direccion:" GridPane.rowIndex="1" />
                         <Label text="Valor:" GridPane.rowIndex="2" />
-                        <Label GridPane.rowIndex="3" />
+                        <Label text="IDPropietario" GridPane.rowIndex="3" />
                         <Label prefHeight="17.0" prefWidth="0.0" GridPane.columnIndex="1" />
                         <Label GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label GridPane.columnIndex="1" GridPane.rowIndex="2" />

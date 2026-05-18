@@ -2,7 +2,7 @@ package proyecto.model;
 
 import java.util.List;
 
-public class Trabajador extends Persona {
+public class Trabajador extends Usuario {
     private String dni;
     private List <Finca> fincas;
 
