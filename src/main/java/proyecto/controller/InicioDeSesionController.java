@@ -35,6 +35,10 @@ public class InicioDeSesionController {
     @FXML
     public ToggleGroup usuario;
 
+    /**
+     * Able la lista de Viviendas o la lista de Fincas
+     * @param usuario Se le pasa el usuario introducido
+     */
     @FXML
     private void abrirListas(Usuario usuario) {
         try {
@@ -42,6 +46,8 @@ public class InicioDeSesionController {
                 FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("lista_viviendas.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                ListaViviendasController controller = fxmlLoader.getController();
+                controller.inicializar(usuario);
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Lista de propiedades");
@@ -52,7 +58,8 @@ public class InicioDeSesionController {
                 FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("lista_fincas.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-
+                ListaFincaController controller = fxmlLoader.getController();
+                controller.inicializar(usuario);
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Lista de fincas");
@@ -65,6 +72,9 @@ public class InicioDeSesionController {
         }
     }
 
+    /**
+     * Obtiene el usuario de los parametros introducidos
+     */
     @FXML
     private void obtenerUsuario() {
         // 1. Inicializamos el objeto que vamos a retornar al final (único return)
@@ -95,6 +105,9 @@ public class InicioDeSesionController {
         }
     }
 
+    /**
+     * Abre la ventana para cambiar la contraseña
+     */
     @FXML
     public void abrirCambioDeContraseña(){
         try {
@@ -103,7 +116,7 @@ public class InicioDeSesionController {
             scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Cambio de Contrasña");
+            stage.setTitle("Cambio de Contraseña");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.showAndWait();
@@ -112,12 +125,20 @@ public class InicioDeSesionController {
         }
     }
 
+    /**
+     * Cierra la ventana
+     * @param actionEvent Se le pasa la accion de un boton
+     */
     @FXML
     public void cerrarVentana(ActionEvent actionEvent) {
         Stage stage = (Stage) botonAcceder.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Mostra informacion de la aplicacion
+     * @param actionEvent Se le pasa la activacion de un boton
+     */
     @FXML
     public void mostrarAcercaDe(ActionEvent actionEvent) {
         Utils.mostrarDialogo("Acerca de", "Auditoria de finca ", "Autor: Antonio Poyato Romero\nVersión: 1.0\nTecnología: JavaFX + JDBC", Alert.AlertType.INFORMATION);

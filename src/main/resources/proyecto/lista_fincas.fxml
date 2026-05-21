@@ -1,34 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.controller.ListaFincaController">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
                 <MenuBar>
                     <menus>
-                        <Menu mnemonicParsing="false" text="File">
+                        <Menu mnemonicParsing="false" text="Archivo">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
+                                <MenuItem mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
+                        <Menu mnemonicParsing="false" text="Ayuda">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
+                                <MenuItem mnemonicParsing="false" onAction="#mostrarAcercaDe" text="Acerca de" />
                             </items>
                         </Menu>
                     </menus>
@@ -42,16 +31,16 @@
                 <VBox prefWidth="550.0" spacing="5.0">
                     <children>
                         <Label text="Fincas Administradas" />
-                        <ListView prefHeight="400.0" prefWidth="477.0" />
+                        <ListView fx:id="listaFincas" prefHeight="400.0" prefWidth="477.0" />
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                               <HBox spacing="15.0">
                                   <children>
-                                      <Button mnemonicParsing="false" text="Añadir Concepto" />
-                              <Button mnemonicParsing="false" text="Borrar Concepto " />
-                                      <Button mnemonicParsing="false" text="Administrar Viviendas" />
-                                      <Button mnemonicParsing="false" text="Recargar" />
-                                      <Button mnemonicParsing="false" text="Atras" HBox.hgrow="NEVER" />
+                                      <Button fx:id="botonAddConcepto" mnemonicParsing="false" onAction="#abrirAddConceptoCuota" text="Añadir Concepto" />
+                              <Button mnemonicParsing="false" onAction="#abrirBorrarConceptoCuota" text="Borrar Concepto " />
+                                      <Button fx:id="botonAdministrarViviendas" mnemonicParsing="false" onAction="#abrirListaViviendasTrabajador" text="Administrar Viviendas" />
+                                      <Button mnemonicParsing="false" onAction="#recargar" text="Recargar" />
+                                      <Button fx:id="cerrarVentana" mnemonicParsing="false" onAction="#cerrarVentana" text="Atras" HBox.hgrow="NEVER" />
                                   </children>
                                   <opaqueInsets>
                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -85,10 +74,8 @@
                             <children>
                                 <Label text="ID:" />
                                 <Label text="Direccion:" GridPane.rowIndex="1" />
-                                <Label prefHeight="17.0" prefWidth="0.0" GridPane.columnIndex="1" />
-                                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label fx:id="labelId" prefHeight="17.0" prefWidth="0.0" GridPane.columnIndex="1" />
+                                <Label fx:id="labelDireccion" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                     </children>

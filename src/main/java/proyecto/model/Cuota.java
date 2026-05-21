@@ -4,15 +4,23 @@ public class Cuota {
     private int id;
     private String nombre;
     private String descripcion;
-    private int costo;
+    private double costo;
     private ConceptoCuota conceptoCuota;
     private Inmueble inmueble;
 
-    public Cuota(int id, String nombre, String descripcion, int costo) {
+    public Cuota(int id, String nombre, String descripcion, double costo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.costo = costo;
+    }
+
+    public Cuota(String nombre, String descripcion, double costo,ConceptoCuota conceptoCuota,Inmueble inmueble) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.costo = costo;
+        this.conceptoCuota = conceptoCuota;
+        this.inmueble = inmueble;
     }
 
     public int getId() {
@@ -27,7 +35,7 @@ public class Cuota {
         return nombre;
     }
 
-    public int getCosto() {
+    public double getCosto() {
         return costo;
     }
 
@@ -39,15 +47,4 @@ public class Cuota {
         return conceptoCuota;
     }
 
-    @Override
-    public String toString() {
-        return "Cuota{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", costo=" + costo +
-                ", conceptoCuota=" + conceptoCuota.getTipo() +
-                ", inmueble=" + inmueble.getDireccion() +
-                '}';
-    }
 }

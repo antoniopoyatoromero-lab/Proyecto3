@@ -18,17 +18,21 @@ public class CuotaDAO {
     private final static String SQL_INSERT = "INSERT INTO Cuota (nombre,descripcion,costo,idConceptoCuota,idInmueble) VALUES (?,?,?,?,?)";
     private final static String SQL_DELETE = "DELETE FROM Cuota WHERE idCuota = ?";
 
+    /**
+     * Se busca la cuota en la base de datos por el id
+     * @param id Se pasa el id de la cuota
+     * @return Devuelve la cuota encontrada
+     */
     public static Cuota findById(int id){
         Cuota cuota = null;
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
             while (rs.next()) {
                 String descripcion = rs.getString("descripcion");
                 String nombre = rs.getString("nombre");
-                int costo = rs.getInt("costo");
+                double costo = rs.getDouble("costo");
                cuota = new Cuota(id,nombre,descripcion,costo);
             }
         } catch (SQLException e) {
@@ -37,18 +41,22 @@ public class CuotaDAO {
         return cuota;
     }
 
+    /**
+     * Busca en la base de datos todas las coutas por la id de un inmueble
+     * @param idInmueble Se le pasa el id del inmueble
+     * @return Devuelve una lista de las cuotas que contiene el id del inmueble
+     */
     public static List<Cuota> findByIdInmueble(int idInmueble){
         ArrayList<Cuota> cuotas = new ArrayList<>();
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID_INMUEBLE)) {
             ps.setInt(1, idInmueble);
             ResultSet rs = ps.executeQuery();
 
-            //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
             while (rs.next()) {
                 int id = rs.getInt("idcuota");
                 String descripcion = rs.getString("descripcion");
                 String nombre = rs.getString("nombre");
-                int costo = rs.getInt("costo");
+                double costo = rs.getDouble("costo");
                 Cuota cuota = new Cuota(id,nombre,descripcion,costo);
                 cuotas.add(cuota);
             }
@@ -58,36 +66,37 @@ public class CuotaDAO {
         return cuotas;
     }
 
-    public static boolean addCuota(Cuota cuota) {
-        boolean added = false;
+    /**
+     * Añade la cuota creada a la base de datos
+     * @param cuota Se le pasa la cuota que se crea
+     */
+    public static void addCuota(Cuota cuota) {
         if (cuota != null) {
             try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_INSERT)) {
                 ps.setString(1, cuota.getNombre());
                 ps.setString(2, cuota.getDescripcion());
-                ps.setInt(3, cuota.getCosto());
+                ps.setDouble(3, cuota.getCosto());
                 ps.setInt(4,cuota.getConceptoCuota().getId());
                 ps.setInt(5,cuota.getInmueble().getId());
                 ps.executeUpdate();
-
-                added = true;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        return added;
     }
 
-    public static boolean deleteCuotaById(int id) {
-        boolean deleted = false;
+    /**
+     * Se borra la cuota seleccionada
+     * @param id Se le pasa el id de la cuota
+     */
+    public static void deleteCuotaById(int id) {
         if(findById(id)!=null){
             try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_DELETE)) {
                 ps.setInt(1, id);
                 ps.executeUpdate();
-                deleted = true;
             }catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        return deleted;
     }
 }

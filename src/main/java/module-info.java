@@ -7,7 +7,6 @@ module org.example.proyecto3 {
     requires javafx.graphics;
     requires org.controlsfx.controls;
     requires javafx.base;
-    requires org.example.proyecto3;
 
 
     opens proyecto to javafx.fxml;

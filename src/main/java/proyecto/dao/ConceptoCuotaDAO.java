@@ -13,18 +13,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConceptoCuotaDAO {
+    private final static String SQL_ALL = "SELECT * FROM conceptoCuota";
     private final static String SQL_FIND_BY_ID = "SELECT * FROM ConceptoCuota Where idconceptoCuota = ?";
-    private final static String SQL_FIND_BY_ID_FINCA = "SELECT * FROM ConceptoCuota where idFinca =?";
     private final static String SQL_INSERT = "INSERT INTO ConceptoCuota (tipo,idFinca) VALUES (?,?)";
     private final static String SQL_DELETE = "DELETE FROM ConceptoCuota WHERE idconceptoCuota = ?";
 
+    /**
+     * Busca en la base de datos todas los conceptos de cuota de la base de datos
+     * @return Devuelve todos los conceptos de cuota que recoge de la base de datos
+     */
+    public static List<ConceptoCuota> findAll() {
+        List<ConceptoCuota> conceptoCuotas = new ArrayList<>();
+        try (ResultSet rs = ConnectionDB.getConnection().createStatement().executeQuery(SQL_ALL)) {
+            while (rs.next()) {
+                int id = rs.getInt("idconceptoCuota");
+                String tipo = rs.getString("tipo");
+                ConceptoCuota conceptoCuota = new ConceptoCuota(id,tipo);
+                conceptoCuotas.add(conceptoCuota);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return conceptoCuotas;
+    }
+
+    /**
+     * Busca en la base de datos un concepto de cuota por la id de el concepto de cuota
+     * @param id Le paso el id del concepto de cuota
+     * @return Devuelve el concepto de cuota  que se ha encontrado de la base de datos
+     */
     public static ConceptoCuota findById(int id){
         ConceptoCuota conceptoCuota = null;
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
             while (rs.next()) {
                 String tipo = rs.getString("tipo");
                 conceptoCuota = new ConceptoCuota(id,tipo);
@@ -35,54 +58,34 @@ public class ConceptoCuotaDAO {
         return conceptoCuota;
     }
 
-    public static List<ConceptoCuota> findByIdFinca(int idFinca){
-        ArrayList<ConceptoCuota> conceptoCuotas = new ArrayList<>();
-        try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID_FINCA)) {
-            ps.setInt(1, idFinca);
-            ResultSet rs = ps.executeQuery();
-
-            //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
-            while (rs.next()) {
-                int id = rs.getInt("idConceptoCuota");
-                String tipo = rs.getString("tipo");
-
-                ConceptoCuota conceptoCuota = new ConceptoCuota(id,tipo);
-                conceptoCuotas.add(conceptoCuota);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return conceptoCuotas;
-    }
-
-    public static boolean addFinca(ConceptoCuota conceptoCuota) {
-        boolean added = false;
-        if (conceptoCuota != null && findById(conceptoCuota.getId()) == null) {
+    /**
+     * Añada a la base de datos el concepto de cuota creado
+     * @param conceptoCuota Se pasa el concepto de cuota creado
+     */
+    public static void addConceptoCuota(ConceptoCuota conceptoCuota) {
+        if (!conceptoCuota.getTipo().isEmpty()) {
             try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_INSERT)) {
                 ps.setString(1, conceptoCuota.getTipo());
                 ps.setInt(2, conceptoCuota.getFinca().getId());
                 ps.executeUpdate();
-
-                added = true;
-
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        return added;
     }
 
-    public static boolean deleteConceptoCuotaById(int id) {
-        boolean deleted = false;
+    /**
+     *Borra el concepto de cuota seleccionado
+     * @param id Se le pasa la id de el concepto de cuota que se quiere borrar
+     */
+    public static void deleteConceptoCuotaById(int id) {
         if(findById(id)!=null){
             try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_DELETE)) {
                 ps.setInt(1, id);
                 ps.executeUpdate();
-                deleted = true;
             }catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        return deleted;
     }
 }

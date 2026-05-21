@@ -14,6 +14,12 @@ public class Finca {
         this.id = id;
     }
 
+    public Finca(String direccion, int id, Trabajador trabajador) {
+        this.direccion = direccion;
+        this.id = id;
+        this.trabajador = trabajador;
+    }
+
     public int getId() {
         return id;
     }
@@ -26,14 +32,5 @@ public class Finca {
         return trabajador;
     }
 
-    @Override
-    public String toString() {
-        return "Finca{" +
-                "id=" + id +
-                ", direccion='" + direccion + '\'' +
-                ", trabajador=" + trabajador.nombre +
-                ", conceptosCuotas=" + conceptosCuotas.stream().map(ConceptoCuota :: getTipo).toList() +
-                ", inmuebles=" + inmuebles.stream().map(Inmueble :: getDireccion).toList() +
-                '}';
-    }
+
 }

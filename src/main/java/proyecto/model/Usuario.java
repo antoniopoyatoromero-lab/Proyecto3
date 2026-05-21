@@ -5,13 +5,13 @@ public abstract class Usuario {
     protected String nombre;
     protected String password;
 
-    public Usuario(int id, String password, String nombre) {
+    protected Usuario(int id, String password, String nombre) {
         this.id = id;
         this.password = password;
         this.nombre = nombre;
     }
 
-    public Usuario(String password, String nombre) {
+    protected Usuario(String password, String nombre) {
         this.password = password;
         this.nombre = nombre;
     }
@@ -40,11 +40,4 @@ public abstract class Usuario {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Persona{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", password='" + password + '\'';
-    }
 }

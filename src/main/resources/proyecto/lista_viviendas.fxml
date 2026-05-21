@@ -4,20 +4,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.controller.ListaViviendasController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="Archivo">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" onAction="#mostrarAcercaDe" text="Acerca de" />
                   </items>
                 </Menu>
               </menus>
@@ -31,13 +31,13 @@
             <VBox spacing="5.0">
                <children>
                   <Label text="Propiedade Adquiridass" />
-                  <ListView />
+                  <ListView fx:id="listaPropiedades" />
                   <HBox spacing="15.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Pagar cuotas" />
-                        <Button mnemonicParsing="false" text="Añadir dinero" />
-                        <Button mnemonicParsing="false" text="Recargar" />
-                        <Button mnemonicParsing="false" text="Atras" />
+                        <Button fx:id="botonPagarCuotas" mnemonicParsing="false" onAction="#abrirPagarCuotas" text="Pagar cuotas" />
+                        <Button fx:id="botonAddDinero" mnemonicParsing="false" onAction="#abrirAddDinero" text="Añadir dinero" />
+                        <Button fx:id="botonRecargar" mnemonicParsing="false" onAction="#recargar" text="Recargar" />
+                        <Button fx:id="botonAtras" mnemonicParsing="false" onAction="#cerrarVentana" text="Atras" />
                      </children>
                      <opaqueInsets>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -69,11 +69,9 @@
                         <Label text="ID:" />
                         <Label text="Direccion:" GridPane.rowIndex="1" />
                         <Label text="Valor:" GridPane.rowIndex="2" />
-                        <Label GridPane.rowIndex="3" />
-                        <Label prefHeight="17.0" prefWidth="0.0" GridPane.columnIndex="1" />
-                        <Label GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="labelId" prefHeight="17.0" prefWidth="0.0" GridPane.columnIndex="1" />
+                        <Label fx:id="labelDireccion" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelValor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

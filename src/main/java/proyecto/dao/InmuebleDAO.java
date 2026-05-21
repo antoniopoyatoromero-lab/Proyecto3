@@ -13,55 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InmuebleDAO {
-    private final static String SQL_ALL = "SELECT * FROM inmuebles";
-    private final static String SQL_FIND_BY_ID = "SELECT * FROM Inmueble Where idInmueble = ?";
+
     private final static String SQL_FIND_BY_ID_FINCA = "SELECT * FROM Inmueble where idFinca =?";
     private final static String SQL_FIND_BY_ID_PROPIETARIO = "SELECT * FROM Inmueble where idPropietario =?";
-    private final static String SQL_INSERT = "INSERT INTO Inmueble (direccion,valor,idFinca,idPropietario) VALUES (?,?,?,?)";
     private final static String SQL_UPDATE_PROPIETARIO = "UPDATE Inmueble SET idPropietario = ? WHERE idInmueble = ?";
 
-
-    public static List<Inmueble> findAll() {
-        List<Inmueble> inmuebles = new ArrayList<>();
-        try (ResultSet rs = ConnectionDB.getConnection().createStatement().executeQuery(SQL_ALL)) {
-            while (rs.next()) {
-                int id = rs.getInt("idInmueble");
-                String direccion = rs.getString("direccion");
-                Double coste = rs.getDouble("valor");
-                Inmueble inmueble = new Inmueble(coste,direccion,id);
-                inmuebles.add(inmueble);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return inmuebles;
-    }
-
-    public static Inmueble findById(int id){
-        Inmueble inmueble = null;
-        try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
-            while (rs.next()) {
-                String direccion = rs.getString("direccion");
-                Double coste = rs.getDouble("valor");
-                inmueble = new Inmueble(coste,direccion,id);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return inmueble;
-    }
-
+    /**
+     * Busca la lista de inmueble relacionadas a una finca
+     * @param idFinca Se le pasa el id de la finca
+     * @return Devuelve la lista de los inmuebles relacionadas con la finca
+     */
     public static List<Inmueble> findByIdFinca(int idFinca){
         ArrayList<Inmueble> inmuebles = new ArrayList<>();
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID_FINCA)) {
             ps.setInt(1, idFinca);
             ResultSet rs = ps.executeQuery();
 
-            //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
             while (rs.next()) {
                 int id = rs.getInt("idInmueble");
                 String direccion = rs.getString("direccion");
@@ -76,18 +43,23 @@ public class InmuebleDAO {
         return inmuebles;
     }
 
+    /**
+     * Busca una lista de inmuebles relacionadas con un propetario
+     * @param idPropietario Se le pasa el id del propetario
+     * @return Devuelve la lista de inmuebles
+     */
     public static List<Inmueble> findByIdPropietario(int idPropietario){
         ArrayList<Inmueble> inmuebles = new ArrayList<>();
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_FIND_BY_ID_PROPIETARIO)) {
             ps.setInt(1, idPropietario);
             ResultSet rs = ps.executeQuery();
 
-            //4. recorrer el resultado, next() devuelve true si hay registro, false si no.
             while (rs.next()) {
                 int id = rs.getInt("idInmueble");
                 String direccion = rs.getString("direccion");
                 double coste  = rs.getDouble("valor");
-                Inmueble inmueble = new Inmueble(coste,direccion,id);
+                Propietario propietario = PropietarioDAO.findById(idPropietario);
+                Inmueble inmueble = new Inmueble(coste,direccion,id,propietario);
                 inmuebles.add(inmueble);
             }
         } catch (SQLException e) {
@@ -96,36 +68,18 @@ public class InmuebleDAO {
         return inmuebles;
     }
 
-    public static boolean addInmueble(Inmueble inmueble) {
-        boolean added = false;
-        if (inmueble != null && findById(inmueble.getId()) == null) {
-            try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_INSERT)) {
-                ps.setString(1, inmueble.getDireccion());
-                ps.setDouble(2, inmueble.getCoste());
-                ps.setInt(3, inmueble.getFinca().getId());
-                ps.setInt(4,inmueble.getPropietario().getId());
-                ps.executeUpdate();
-
-                added = true;
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return added;
-    }
-
-    public static boolean updatePropietario(int idPropietario, int id){
-        boolean updated = false;
+    /**
+     * Actualiza el id del propetario del inmueble selecionado
+     * @param idPropietario Se le pasa el id del propetario
+     * @param id Se le pasa el id del inmueble
+     */
+    public static void updatePropietario(int idPropietario, int id){
         try (PreparedStatement ps = ConnectionDB.getConnection().prepareStatement(SQL_UPDATE_PROPIETARIO)) {
             ps.setDouble(1, idPropietario);
             ps.setInt(2,id);
             ps.executeUpdate();
-            updated = true;
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        return updated;
     }
 }
