@@ -31,7 +31,7 @@ public class EditarPropietarioController {
     public void inicializar(Inmueble inmueble){
         inmuebleSeleccionado = inmueble;
         cargarPropietarios();
-        configurarComboBoxCuota();
+        configurarComboBoxPropietario();
     }
 
     /**
@@ -51,7 +51,7 @@ public class EditarPropietarioController {
     /**
      * Configura la lista despegable
      */
-    private void configurarComboBoxCuota() {
+    private void configurarComboBoxPropietario() {
         boxPropietarios.setCellFactory(listView -> new ListCell<Propietario>() {
             @Override
             protected void updateItem(Propietario propietario, boolean empty) {

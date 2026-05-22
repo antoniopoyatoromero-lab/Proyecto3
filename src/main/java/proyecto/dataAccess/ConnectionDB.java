@@ -7,10 +7,9 @@ import java.sql.SQLException;
 public class ConnectionDB {
     private static final String FILE = "connection.xml";
     private static Connection con;
-    //1. crear una instancia de la propia clase
+
     private static ConnectionDB _instance;
 
-    //2. Constructor privado
     private ConnectionDB() {
         //leo del connection.xml los datos para la conexion
         ConnectionProperties properties = XMLManager.readXML(new ConnectionProperties(), FILE);
@@ -21,8 +20,6 @@ public class ConnectionDB {
             con=null;
         }
     }
-
-    //3. metodo publico que me devuelve la instancia ya creada, si la primera vez la crea
 
     public static Connection getConnection() {
         if(_instance==null){

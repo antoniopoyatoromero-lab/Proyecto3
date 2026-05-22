@@ -6,8 +6,6 @@ public class Finca {
     private int id;
     private String direccion;
     private Trabajador trabajador;
-    private List<ConceptoCuota> conceptosCuotas;
-    private List<Inmueble> inmuebles;
 
     public Finca(String direccion, int id) {
         this.direccion = direccion;
@@ -27,10 +25,4 @@ public class Finca {
     public String getDireccion() {
         return direccion;
     }
-
-    public Trabajador getTrabajador() {
-        return trabajador;
-    }
-
-
 }

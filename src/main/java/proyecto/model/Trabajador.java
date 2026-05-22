@@ -1,7 +1,5 @@
 package proyecto.model;
 
-
-
 public class Trabajador extends Usuario {
     private String dni;
 
