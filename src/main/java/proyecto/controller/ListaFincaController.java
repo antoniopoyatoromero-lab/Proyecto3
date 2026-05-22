@@ -48,7 +48,6 @@ public class ListaFincaController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("lista_viviendas_trabajador.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             ListaViviendasTrabajadorController controller = fxmlLoader.getController();
             controller.inicializar(listaFincas.getSelectionModel().getSelectedItem());
             Stage stage = new Stage();
@@ -70,7 +69,6 @@ public class ListaFincaController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("add_concepto_cuota.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             AddConceptoCuotaController controller = fxmlLoader.getController();
             controller.inicializar(listaFincas.getSelectionModel().getSelectedItem());
             Stage stage = new Stage();
@@ -92,7 +90,6 @@ public class ListaFincaController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("borrar_concepto_cuota.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             BorrarConceptoCuotaController controller = fxmlLoader.getController();
             controller.inicializar();
             Stage stage = new Stage();

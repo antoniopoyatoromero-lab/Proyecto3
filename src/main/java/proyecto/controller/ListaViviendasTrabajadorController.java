@@ -48,7 +48,6 @@ public class ListaViviendasTrabajadorController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("add_cuota.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             AddCuotaController controller = fxmlLoader.getController();
             controller.inicializar(listaPropiedades.getSelectionModel().getSelectedItem());
             Stage stage = new Stage();
@@ -70,7 +69,6 @@ public class ListaViviendasTrabajadorController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("editar_propietario.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             EditarPropietarioController controller = fxmlLoader.getController();
             controller.inicializar(listaPropiedades.getSelectionModel().getSelectedItem());
             Stage stage = new Stage();

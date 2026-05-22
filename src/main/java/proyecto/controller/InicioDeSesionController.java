@@ -45,7 +45,6 @@ public class InicioDeSesionController {
             if (usuario.getClass() == Propietario.class) {
                 FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("lista_viviendas.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
-                scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 ListaViviendasController controller = fxmlLoader.getController();
                 controller.inicializar(usuario);
                 Stage stage = new Stage();
@@ -57,7 +56,6 @@ public class InicioDeSesionController {
             } else {
                 FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("lista_fincas.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
-                scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
                 ListaFincaController controller = fxmlLoader.getController();
                 controller.inicializar(usuario);
                 Stage stage = new Stage();
@@ -77,13 +75,11 @@ public class InicioDeSesionController {
      */
     @FXML
     private void obtenerUsuario() {
-        // 1. Inicializamos el objeto que vamos a retornar al final (único return)
         Usuario usuario = null;
 
         String nombre = txtUsuario.getText();
         String password = txtPassword.getText();
 
-        // Validar campos vacíos
         if (nombre.isEmpty() || password.isEmpty()) {
             Utils.mostrarDialogo("Error", "Campos vacíos", "Por favor, introduce el usuario y la contraseña.", Alert.AlertType.WARNING);
         } else {
@@ -113,7 +109,6 @@ public class InicioDeSesionController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("cambio_de_password.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Cambio de Contraseña");

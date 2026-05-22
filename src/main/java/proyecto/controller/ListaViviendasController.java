@@ -74,7 +74,6 @@ public class ListaViviendasController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("add_dinero.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             AddDineroController controller = fxmlLoader.getController();
             controller.inicializar(propietarioEscogido);
             Stage stage = new Stage();
@@ -96,7 +95,6 @@ public class ListaViviendasController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(PrincipalApplication.class.getResource("pagar_cuotas.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             PagarCuotasController controller = fxmlLoader.getController();
             controller.inicializar(listaPropiedades.getSelectionModel().getSelectedItem());
             Stage stage = new Stage();

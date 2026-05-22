@@ -26,13 +26,11 @@ public class CambioDePasswordController {
      */
     @FXML
     private void cambiarPassword() {
-        // 1. Inicializamos el objeto que vamos a retornar al final (único return)
         Usuario usuario = null;
 
         String nombre = txtUsuario.getText();
         String password = txtPassword.getText();
 
-        // Validar campos vacíos
         if (nombre.isEmpty() || password.isEmpty()) {
             Utils.mostrarDialogo("Error", "Campos vacíos", "Por favor, introduce el usuario y la contraseña.", Alert.AlertType.WARNING);
         } else {
