@@ -2,7 +2,7 @@
 
 # Instalación 🔧
 
-Para instalar el proyecto lo unico que habria que hacer seria irse a la carpeta "DB" e instalarse la base de datos ahi creada
+Para instalar el proyecto lo unico que habria que hacer seria irse a la carpeta "BD" e instalarse la base de datos ahi creada
 
 # Construido con 🛠️
 
